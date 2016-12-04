@@ -159,6 +159,7 @@ vim index.php
 ```
 
 //$corewindow="main.php";
+
 $corewindow="cgi-bin/tac.cgi";
 
 ### Now you should have a useful and free Nagios3 and NagiosGraph setup with allows you to graph anything including any custom scripts you need you just need to send it the exit code at the end of the script, any language is supported.
