@@ -2,7 +2,7 @@
 
 AutoNagios
 
-## INSTALLING NAGIOSGRAPH ON NAGIOS3 AND APACHE2 DEBIAN
+## Installing NagiosGraph on Nagios3 and Apache2 on Debian
 
 ```
 apt-get install nagios3
