@@ -4,6 +4,7 @@ AutoNagios
 
 ## INSTALLING NAGIOSGRAPH ON NAGIOS3 AND APACHE2 DEBIAN
 
+```
 apt-get install nagios3
 
 apt-get install rrdtool
@@ -15,10 +16,11 @@ apt-get install librrds-perl
 apt-get install libgd-gd2-perl
 
 apt-get install libcgi-pm-perl
+```
 
 https://sourceforge.net/projects/nagiosgraph/files/nagiosgraph/
 
-scp -r nagiosgraph-1.5.2.tar.gz thinkpad.local:/home/chris
+scp -r nagiosgraph-1.5.2.tar.gz thinkpad.local:/home/USER
 
 tar xvfz nagiosgraph-1.5.2.tar.gz
 
@@ -28,14 +30,20 @@ install necessary libraries
 
 go with defaults
 
-follow instructions
+follow instructions at the end of install.pl
 
 update nagios.cfg
 
 update commands.cfg
 
-once finished update services then a check load
+once finished update services then a check load to nagiosgraph
 
+verify everthing checks out for Nagios
+
+/usr/sbin/nagios3 -v /etc/nagios3/nagios.cfg
+
+
+add services and updates to localhost to verify
 
 ```
 vim /etc/nagios3/conf.d/services_nagios2.cfg
@@ -66,14 +74,16 @@ verify everthing checks out for Nagios
 
 service nagios3 restart
 
-chgrp -R www-data nagiosgraph/
+dir for nagiosgraph info
 
 cd /usr/local/nagiosgraph
 
-LOOKED UP
+chgrp -R www-data /usr/local/nagiosgraph/
+
+LOOKED UP ERROR IN LOG
 AH01630: client denied by server configuration
 
-Found new config for apache 2.4
+Found new config "Require all granted" for apache 2.4
 
 
 ```
@@ -117,7 +127,7 @@ checking logging dir
 
 chown -R nagios /usr/local/nagiosgraph/
 
-chown -R nagios rrd
+chown -R nagios /usr/local/nagiosgraph/rrd
 
 if graphs still dont work check the logs for anything related to insert.pl
 
@@ -130,8 +140,13 @@ vim index.php
 //$corewindow="main.php";
 $corewindow="cgi-bin/tac.cgi";
 
-#Now you should have a nice Nagios3 and NagiosGraph setup with allows you to graph anything including any custom scripts you need, any lanugage is supported.
+#Now you should have a useful and free Nagios3 and NagiosGraph setup with allows you to graph anything including any custom scripts you need you just need to send it the exit code at the end of the script, any language is supported.
 
-#Nagios isnt the prettiest for graphs, good for researching trouble issues also setup graphite and graphana for custom dashboards.
+#More info on plugins
+https://www.nagios.org/downloads/nagios-plugins/
 
-##Next setup greylog and elk stack for logging
+#Nagios isnt the best for dashboards of graphs, very good for researching trouble issues though and automating healthchecks, builds and self healing scripts so you may want to also setup graphite and graphana for custom dashboards.
+
+##Next setup greylog and elk stack for more advanced logging.
+
+# Send me any questions, Cheers!
