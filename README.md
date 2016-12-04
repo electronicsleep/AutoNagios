@@ -167,7 +167,9 @@ $corewindow="cgi-bin/tac.cgi";
 #More info on Nagios Plugins
 https://www.nagios.org/downloads/nagios-plugins/
 
-### Nagios isnt the best for dashboards of graphs, very good for researching trouble issues though and automating healthchecks, builds and self healing scripts and operational tasks so you may want to also setup graphite and graphana or prometheus for custom dashboards or monitoring from a service level instad of server level to get a larger view of systems health.
+### Nagios isnt the best for dashboards of graphs for overall large systems, it is very good for researching small and server level issues though and automating healthchecks, security upgrades, builds, self healing scripts and operational tasks.
+
+### You may want to also setup graphite and graphana or prometheus for custom dashboards or monitoring from a service level instead of server level issues to get a larger view of systems health and hit count.
 
 ## Next setup greylog and elk stack for more advanced logging.
 
