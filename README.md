@@ -140,13 +140,13 @@ vim index.php
 //$corewindow="main.php";
 $corewindow="cgi-bin/tac.cgi";
 
-#Now you should have a useful and free Nagios3 and NagiosGraph setup with allows you to graph anything including any custom scripts you need you just need to send it the exit code at the end of the script, any language is supported.
+### Now you should have a useful and free Nagios3 and NagiosGraph setup with allows you to graph anything including any custom scripts you need you just need to send it the exit code at the end of the script, any language is supported.
 
 #More info on plugins
 https://www.nagios.org/downloads/nagios-plugins/
 
-#Nagios isnt the best for dashboards of graphs, very good for researching trouble issues though and automating healthchecks, builds and self healing scripts so you may want to also setup graphite and graphana for custom dashboards.
+### Nagios isnt the best for dashboards of graphs, very good for researching trouble issues though and automating healthchecks, builds and self healing scripts so you may want to also setup graphite and graphana or prometheus for custom dashboards.
 
-##Next setup greylog and elk stack for more advanced logging.
+## Next setup greylog and elk stack for more advanced logging.
 
 # Send me any questions, Cheers!
