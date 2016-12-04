@@ -173,4 +173,6 @@ https://www.nagios.org/downloads/nagios-plugins/
 
 ## Next setup greylog and elk stack for more advanced logging.
 
+## Hope this saves someone some time.
+
 # Send me any questions or suggestions, Cheers!
