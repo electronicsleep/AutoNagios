@@ -20,15 +20,19 @@ apt-get install libcgi-pm-perl
 
 https://sourceforge.net/projects/nagiosgraph/files/nagiosgraph/
 
+```
 scp -r nagiosgraph-1.5.2.tar.gz thinkpad.local:/home/USER
 
 tar xvfz nagiosgraph-1.5.2.tar.gz
 
+cd nagiosgraph-1.5.2
+
 perl install.pl
+```
 
 install necessary libraries
 
-go with defaults
+go with defaults on everything else
 
 follow instructions at the end of install.pl
 
@@ -40,7 +44,11 @@ once finished update services then a check load to nagiosgraph
 
 verify everthing checks out for Nagios
 
+```
 /usr/sbin/nagios3 -v /etc/nagios3/nagios.cfg
+
+service nagios3 restart
+```
 
 
 add services and updates to localhost to verify
@@ -70,9 +78,11 @@ update apache permissions to allow
 
 verify everthing checks out for Nagios
 
+```
 /usr/sbin/nagios3 -v /etc/nagios3/nagios.cfg
 
 service nagios3 restart
+```
 
 dir for nagiosgraph info
 
@@ -117,36 +127,47 @@ No data in rrd directory /usr/local/nagiosgraph/var/rrd
 
 see if rrd being created
 
+```
 ls -l /usr/local/nagiosgraph/var/rrd
+```
 
 checking logging dir
+
+update permissions and checking logs
 
 /usr/local/nagiosgraph/var/log
 
 /var/log/
 
+```
 chown -R nagios /usr/local/nagiosgraph/
 
 chown -R nagios /usr/local/nagiosgraph/rrd
+```
 
 if graphs still dont work check the logs for anything related to insert.pl
 
+```
 service apache2 restart
+```
 
 my preference is to have tatical be the default
 
+```
+cd /usr/share/nagios3/htdocs
 vim index.php
+```
 
 //$corewindow="main.php";
 $corewindow="cgi-bin/tac.cgi";
 
 ### Now you should have a useful and free Nagios3 and NagiosGraph setup with allows you to graph anything including any custom scripts you need you just need to send it the exit code at the end of the script, any language is supported.
 
-#More info on plugins
+#More info on Nagios Plugins
 https://www.nagios.org/downloads/nagios-plugins/
 
-### Nagios isnt the best for dashboards of graphs, very good for researching trouble issues though and automating healthchecks, builds and self healing scripts so you may want to also setup graphite and graphana or prometheus for custom dashboards.
+### Nagios isnt the best for dashboards of graphs, very good for researching trouble issues though and automating healthchecks, builds and self healing scripts and operational tasks so you may want to also setup graphite and graphana or prometheus for custom dashboards or monitoring from a service level instad of server level to get a larger view of systems health.
 
 ## Next setup greylog and elk stack for more advanced logging.
 
-# Send me any questions, Cheers!
+# Send me any questions or suggestions, Cheers!
