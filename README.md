@@ -169,9 +169,7 @@ Now you should have a useful and free Nagios3 and NagiosGraph setup with allows 
 ## More info on Nagios Plugins
 https://www.nagios.org/downloads/nagios-plugins/
 
-#### Nagios isnt the best for dashboards of graphs for overall large systems, it is very good for researching small and server level issues though and automating healthchecks, security upgrades, builds, self healing scripts and operational tasks.
-
-#### You may want to also setup graphite and graphana or prometheus for custom dashboards or monitoring from a service level instead of server level issues to get a larger view of systems health and hit count.
+#### For Dashboards of combined or overlayed graphs you may want to also setup graphite and graphana or prometheus for custom dashboards or monitoring from a service level instead of server level issues to get a larger view of systems health and hit count.
 
 Next setup graylog and elk stack and loganalizer for more advanced logging.
 
