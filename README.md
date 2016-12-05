@@ -169,7 +169,7 @@ Now you should have a useful and free Nagios3 and NagiosGraph setup with allows 
 ## More info on Nagios Plugins
 https://www.nagios.org/downloads/nagios-plugins/
 
-#### For Dashboards of combined or overlayed graphs you may want to also setup graphite and graphana or prometheus for custom dashboards or monitoring from a service level instead of server level issues to get a larger view of systems health and hit count.
+#### For Dashboards of combined or overlayed graphs you may want to also setup Graphite and Grafana or Prometheus for custom dashboards or monitoring from a dashoard level instead of server level to get a larger view of systems health and hit count.
 
 Next setup graylog and elk stack and loganalizer for more advanced logging.
 
