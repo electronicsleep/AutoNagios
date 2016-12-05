@@ -162,17 +162,17 @@ vim index.php
 
 $corewindow="cgi-bin/tac.cgi";
 
-#### Now you should have a useful and free Nagios3 and NagiosGraph setup with allows you to graph anything including any custom scripts you need you just need to send it the exit code and perfdata at the end of the script, any language is supported.
+Now you should have a useful and free Nagios3 and NagiosGraph setup with allows you to graph anything including any custom scripts you need you just need to send it the exit code and perfdata at the end of the script, any language is supported.
 
 ## More info on Nagios Plugins
 https://www.nagios.org/downloads/nagios-plugins/
 
 #### Nagios isnt the best for dashboards of graphs for overall large systems, it is very good for researching small and server level issues though and automating healthchecks, security upgrades, builds, self healing scripts and operational tasks.
 
-### You may want to also setup graphite and graphana or prometheus for custom dashboards or monitoring from a service level instead of server level issues to get a larger view of systems health and hit count.
+#### You may want to also setup graphite and graphana or prometheus for custom dashboards or monitoring from a service level instead of server level issues to get a larger view of systems health and hit count.
 
-### Next setup greylog and elk stack for more advanced logging.
+Next setup greylog and elk stack for more advanced logging.
 
-### Hope this saves someone some time.
+Hope this saves someone some time.
 
 ## Send me any questions or suggestions, Cheers!
