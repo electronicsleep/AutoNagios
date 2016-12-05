@@ -90,8 +90,12 @@ cd /usr/local/nagiosgraph
 
 chgrp -R www-data /usr/local/nagiosgraph/
 
-LOOKED UP ERROR IN LOG
+```
+Looked up error in logs with apache config not working
+
 AH01630: client denied by server configuration
+
+```
 
 Found new config "Require all granted" for apache 2.4
 
@@ -133,11 +137,11 @@ ls -l /usr/local/nagiosgraph/var/rrd
 
 checking logging dir
 
-update permissions and checking logs
+checking logs and update permissions 
 
-/usr/local/nagiosgraph/var/log
+tail -f /usr/local/nagiosgraph/var/log/*
 
-/var/log/
+tail -f /var/log/*
 
 ```
 chown -R nagios /usr/local/nagiosgraph/
@@ -156,13 +160,11 @@ my preference is to have tatical be the default
 ```
 cd /usr/share/nagios3/htdocs
 vim index.php
+//$corewindow="main.php";
+$corewindow="cgi-bin/tac.cgi";
 ```
 
-//$corewindow="main.php";
-
-$corewindow="cgi-bin/tac.cgi";
-
-Now you should have a useful and free Nagios3 and NagiosGraph setup with allows you to graph anything including any custom scripts you need you just need to send it the exit code and perfdata at the end of the script, any language is supported.
+Now you should have a useful and free Nagios3 and NagiosGraph setup with allows you to customize and  graph anything including any custom scripts you need you just need to send it the exit code and perfdata at the end of the script. I also suggest using version control on your configs. Any language is supported.
 
 ## More info on Nagios Plugins
 https://www.nagios.org/downloads/nagios-plugins/
