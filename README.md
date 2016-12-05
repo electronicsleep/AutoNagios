@@ -171,7 +171,7 @@ https://www.nagios.org/downloads/nagios-plugins/
 
 #### You may want to also setup graphite and graphana or prometheus for custom dashboards or monitoring from a service level instead of server level issues to get a larger view of systems health and hit count.
 
-Next setup greylog and elk stack for more advanced logging.
+Next setup graylog and elk stack and loganalizer for more advanced logging.
 
 Hope this saves someone some time.
 
