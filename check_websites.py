@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 import requests
 import os
+
 cwd = os.getcwd()
-print(cwd)
+
+#Running Via Nagios
 if cwd == '/':
   cwd = '/usr/lib/nagios/plugins/'
 
@@ -27,8 +29,8 @@ for website in check_websites_list:
     website = website.strip()
     try:
         r = requests.get(website)
-        #print r
-        #print("OK: " + website)
+        print r
+        print("OK: " + website)
     except:
         print( "ERROR: CHECK WEBSITE: " + website)
         exit(1)
