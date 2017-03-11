@@ -32,8 +32,8 @@ for website in check_websites_list:
         print r
         print("OK: " + website)
     except:
-        print( "ERROR: CHECK WEBSITE: " + website)
+        print("ERROR: CHECK WEBSITE: " + website + " | 1")
         exit(1)
 
-print("ALL WEBSITES OK")
+print("ALL WEBSITES OK | 0")
 exit(0)
