@@ -175,4 +175,45 @@ Next setup graylog and elk stack and loganalizer for more advanced logging.
 
 Hope this saves someone some time.
 
+
 ## Send me any questions or suggestions, Cheers!
+
+## Enable External
+
+check_external_commands=1
+
+
+service nagios3 stop
+dpkg-statoverride --update --add nagios www-data 2710 /var/lib/nagios3/rw
+dpkg-statoverride --update --add nagios nagios 751 /var/lib/nagios3
+service nagios3 start
+
+## Setup Simple Python Check
+```
+#CONF DIR
+cd /etc/nagios3/conf.d
+vim localhost_nagios2.cfg
+
+# Define a service to check the load on the local machine.
+
+define service{
+        use                             generic-service,nagiosgraph       ; Name of service template to use
+        host_name                       localhost
+        service_description             Current Websites
+                check_command                   check_websites.py
+        }
+
+#PLUGIN DIR
+cd /etc/nagios-plugins/config
+vim check-websites.cfg
+
+# 'check_websites' command definition
+define command{
+        command_name    check_websites
+        command_line    /usr/lib/nagios/plugins/check_websites.py
+        }
+
+cp check_websites.py /usr/lib/nagios/plugins/
+
+chmod 755 /usr/lib/nagios/plugins/check_websites.py
+```

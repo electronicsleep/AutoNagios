@@ -1,14 +1,15 @@
+#!/usr/bin/env python
 import requests
 
 check_websites_list = []
 
-with open('website-inventory.txt', 'rU') as f:
+with open('/usr/lib/nagios/plugins/check_websits_inventory.txt', 'rU') as f:
   for line in f:
      #print(line)
      check_websites_list.append(line)
 
-print("Website List:")
-print(check_websites_list)
+#print("Website List:")
+#print(check_websites_list)
 
 for website in check_websites_list:
     website = website.strip()
@@ -17,7 +18,7 @@ for website in check_websites_list:
         print r
         print("OK: " + website)
     except:
-        prin( "ERROR: CHECK WEBSITE: " + website)
+        print( "ERROR: CHECK WEBSITE: " + website)
         exit(1)
 
 print("ALL WEBSITES OK")
