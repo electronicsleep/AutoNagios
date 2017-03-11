@@ -180,13 +180,14 @@ Hope this saves someone some time.
 
 ## Enable External
 
+```
 check_external_commands=1
-
 
 service nagios3 stop
 dpkg-statoverride --update --add nagios www-data 2710 /var/lib/nagios3/rw
 dpkg-statoverride --update --add nagios nagios 751 /var/lib/nagios3
 service nagios3 start
+```
 
 ## Setup Simple Python Check
 ```
