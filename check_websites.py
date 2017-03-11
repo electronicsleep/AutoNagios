@@ -1,15 +1,23 @@
 #!/usr/bin/env python
 import requests
+import os
+cwd = os.getcwd()
+path = os.path.join(cwd, "check_websites_inventory.txt")
 
 check_websites_list = []
 
-with open('/usr/lib/nagios/plugins/check_websites_inventory.txt', 'rU') as f:
+with open(path, 'rU') as f:
   for line in f:
      #print(line)
      check_websites_list.append(line)
 
 #print("Website List:")
 #print(check_websites_list)
+
+if len(check_websites_list) == 0:
+    print("ERROR: NO WEBSITES DEFINED")
+    exit(1)
+
 
 for website in check_websites_list:
     website = website.strip()
