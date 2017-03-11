@@ -2,6 +2,10 @@
 import requests
 import os
 cwd = os.getcwd()
+print(cwd)
+if cwd == '/':
+  cwd = '/usr/lib/nagios/plugins/'
+
 path = os.path.join(cwd, "check_websites_inventory.txt")
 
 check_websites_list = []
