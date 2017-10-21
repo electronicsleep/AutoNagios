@@ -11,6 +11,7 @@ apt-get install fail2ban vim git -y
 
 apt-get install nagios3 nagios-plugins rrdtool -y
 
+# Install necessary libraries
 apt-get install libnagios-object-perl librrds-perl libgd-gd2-perl libcgi-pm-perl -y
 
 ```
@@ -19,14 +20,14 @@ apt-get install libnagios-object-perl librrds-perl libgd-gd2-perl libcgi-pm-perl
 https://sourceforge.net/projects/nagiosgraph/files/nagiosgraph/
 
 ```
-tar xvfz nagiosgraph-1.5.2.tar.gz
+tar xvfz nagiosgraph-*.tar.gz
 
-cd nagiosgraph-1.5.2
+cd nagiosgraph-*
+
+perl install.pl --check-prereq
 
 perl install.pl
 ```
-
-install necessary libraries
 
 go with defaults on everything else
 
