@@ -7,12 +7,13 @@
 ## Installing NagiosGraph on Nagios3 and Apache2 on Debian8
 
 ```
-apt-get install fail2ban vim git -y
+# Base packages
+apt-get install fail2ban vim git tree -y
 
 # Nagios core
 apt-get install nagios3 nagios-plugins rrdtool -y
 
-# Install necessary libraries
+# Install necessary libraries for NagiosGraph
 apt-get install libnagios-object-perl librrds-perl libgd-gd2-perl libcgi-pm-perl -y
 
 ```
@@ -46,7 +47,7 @@ apache config location /etc/apache2/conf-enabled/
 /etc/init.d/apache2 restart
 ```
 
-# If you want to manual config /check
+## For manual config /check
 
 check/follow instructions at the end of install.pl
 
@@ -60,6 +61,8 @@ verify everthing checks out for Nagios
 
 add services and updates to localhost to verify
 
+## Update services
+
 ```
 vim /etc/nagios3/conf.d/services_nagios2.cfg
 
@@ -72,9 +75,11 @@ define service {
 
 Update use statement and add nagiosgraph
 
-sed -i 's/generic-service/generic-service,nagiosgraph/g' /etc/nagios3/conf.d/localhost_nagios2.cfg
-
 ```
+sed -i 's/generic-service/generic-service,nagiosgraph/g' /etc/nagios3/conf.d/localhost_nagios2.cfg
+sed -i 's/generic-service/generic-service,nagiosgraph/g' /etc/nagios3/conf.d/services_nagios2.cfg
+
+#Example
 define service{
         use                             generic-service,nagiosgraph
         host_name                       localhost
@@ -86,7 +91,6 @@ Now you should have graph icon on each service check
 Update apache permissions to allow
 
 Verify everthing checks out for Nagios
-
 
 ```
 /usr/sbin/nagios3 -v /etc/nagios3/nagios.cfg
@@ -101,8 +105,8 @@ cd /usr/local/nagiosgraph
 Edit Apache config to allow Nagios access to graphs
 
 vim /etc/apache2/conf-enabled/nagiosgraph.conf
-```
 
+```
 # enable nagiosgraph CGI scripts
 ScriptAlias /nagiosgraph/cgi-bin "/usr/local/nagiosgraph/cgi"
 <Directory "/usr/local/nagiosgraph/cgi">
@@ -141,7 +145,7 @@ tail -f /var/log/apache2/error.log /var/log/nagios3/nagios.log
 
 If graphs dont work check the logs for anything related to insert.pl
 
-my preference is to have tactical be the default
+My preference is to have tactical be the default
 
 ```
 vim /usr/share/nagios3/htdocs/index.php
@@ -154,8 +158,10 @@ Now you should have a useful and free Nagios3 and NagiosGraph setup with allows 
 ## More info on Nagios Plugins
 https://www.nagios.org/downloads/nagios-plugins/
 
-## Enable external checks
+## Enable external checks 
+- So you can re-schedule checks via the web interface
 ```
+vim /etc/nagios3/nagios.cfg
 check_external_commands=1
 
 service nagios3 stop
@@ -177,7 +183,7 @@ define service{
                 check_command                   check_websites.py
         }
 
-#PLUGIN DIR
+#Plugin DIR
 cd /etc/nagios-plugins/config
 vim check-websites.cfg
 
@@ -198,9 +204,7 @@ mv /etc/nagios3/htpasswd.users /etc/nagios3/htpasswd.users.backup
 htpasswd -c /etc/nagios3/htpasswd.users nagiosadmin
 
 
-#### For Dashboards of combined or overlayed graphs you may want to also setup Graphite and Grafana or Prometheus for custom dashboards or monitoring from a dashoard level instead of server level to get a larger view of systems health and hit count.
-
-Next setup graylog and elk stack and loganalizer for more advanced logging.
+#### For Dashboards of combined or overlayed graphs you may want to also setup Grafana, Prometheus or Graphite for custom dashboards or monitoring from a dashoard level instead of server level to get a larger view of systems health and hit count.
 
 Hope this saves someone some time.
 
