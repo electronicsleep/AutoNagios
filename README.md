@@ -1,6 +1,6 @@
 # AutoNagios
 
-- Notes on how to install graphing plugin NagiosGraph with the Nagios.
+- Notes on how to install graphing plugin NagiosGraph with Nagios.
 
 - How to install a example custom check.
 
@@ -9,6 +9,7 @@
 ```
 apt-get install fail2ban vim git -y
 
+# Nagios core
 apt-get install nagios3 nagios-plugins rrdtool -y
 
 # Install necessary libraries
@@ -31,7 +32,23 @@ perl install.pl
 
 go with defaults on everything else
 
-follow instructions at the end of install.pl
+say yes to modify configs
+
+apache config location /etc/apache2/conf-enabled/
+
+## Verify config
+
+```
+/usr/sbin/nagios3 -v /etc/nagios3/nagios.cfg
+
+/etc/init.d/nagios3 restart
+
+/etc/init.d/apache2 restart
+```
+
+# If you want to manual config /check
+
+check/follow instructions at the end of install.pl
 
 update nagios.cfg
 
@@ -41,39 +58,35 @@ once finished update services then a check load to nagiosgraph
 
 verify everthing checks out for Nagios
 
-```
-/usr/sbin/nagios3 -v /etc/nagios3/nagios.cfg
-
-service nagios3 restart
-```
-
-
 add services and updates to localhost to verify
 
 ```
 vim /etc/nagios3/conf.d/services_nagios2.cfg
 
 define service {
-name nagiosgraph
-action_url /nagiosgraph/cgi-bin/show.cgi?host=$HOSTNAME$&service=$SERVICEDESC$
-register 0
+        name nagiosgraph
+        action_url /nagiosgraph/cgi-bin/show.cgi?host=$HOSTNAME$&service=$SERVICEDESC$
+        register 0
 }
 ```
 
-Update like so 
+Update use statement and add nagiosgraph
 
-vim /etc/nagios3/conf.d/localhost_nagios2.cfg
+sed -i 's/generic-service/generic-service,nagiosgraph/g' /etc/nagios3/conf.d/localhost_nagios2.cfg
 
 ```
 define service{
-        use                             generic-service,nagiosgraph       ; Name of service template to use
+        use                             generic-service,nagiosgraph
         host_name                       localhost
         service_description             Current Load
 ```
 
-update apache permissions to allow
+Now you should have graph icon on each service check
 
-verify everthing checks out for Nagios
+Update apache permissions to allow
+
+Verify everthing checks out for Nagios
+
 
 ```
 /usr/sbin/nagios3 -v /etc/nagios3/nagios.cfg
@@ -81,24 +94,14 @@ verify everthing checks out for Nagios
 service nagios3 restart
 ```
 
-dir for nagiosgraph info
+## Dir for nagiosgraph info
 
 cd /usr/local/nagiosgraph
 
-chgrp -R www-data /usr/local/nagiosgraph/
+Edit Apache config to allow Nagios access to graphs
 
+vim /etc/apache2/conf-enabled/nagiosgraph.conf
 ```
-Looked up error in logs with apache config not working
-
-AH01630: client denied by server configuration
-
-```
-
-Found new config "Require all granted" for apache 2.4
-
-
-```
-cat /etc/apache2/conf-enabled/nagiosgraph.conf
 
 # enable nagiosgraph CGI scripts
 ScriptAlias /nagiosgraph/cgi-bin "/usr/local/nagiosgraph/cgi"
@@ -108,10 +111,10 @@ ScriptAlias /nagiosgraph/cgi-bin "/usr/local/nagiosgraph/cgi"
    #Order allow,deny
    Require all granted
    Allow from all
-#   AuthName "Nagios Access"
-#   AuthType Basic
-#   AuthUserFile NAGIOS_ETC_DIR/htpasswd.users
-#   Require valid-user
+   AuthName "Nagios Access"
+   AuthType Basic
+   AuthUserFile /etc/nagios3/htpasswd.users
+   Require valid-user
 </Directory>
 # enable nagiosgraph CSS and JavaScript
 Alias /nagiosgraph "/usr/local/nagiosgraph/share"
@@ -124,59 +127,34 @@ Alias /nagiosgraph "/usr/local/nagiosgraph/share"
 </Directory>
 ```
 
-No data in rrd directory /usr/local/nagiosgraph/var/rrd
+Check data in rrd directory 
 
-see if rrd being created
+tree /usr/local/nagiosgraph/var/rrd
 
-```
-ls -l /usr/local/nagiosgraph/var/rrd
-```
+## Troubleshooting
 
-checking logging dir
+Checking logs
 
-checking logs and update permissions 
+tail -f /usr/local/nagiosgraph/var/log/nagiosgraph.log
 
-tail -f /usr/local/nagiosgraph/var/log/*
+tail -f /var/log/apache2/error.log /var/log/nagios3/nagios.log
 
-tail -f /var/log/*
+If graphs dont work check the logs for anything related to insert.pl
 
-```
-chown -R nagios /usr/local/nagiosgraph/
-
-chown -R nagios /usr/local/nagiosgraph/rrd
-```
-
-if graphs still dont work check the logs for anything related to insert.pl
+my preference is to have tactical be the default
 
 ```
-service apache2 restart
-```
-
-my preference is to have tatical be the default
-
-```
-cd /usr/share/nagios3/htdocs
-vim index.php
+vim /usr/share/nagios3/htdocs/index.php
 //$corewindow="main.php";
 $corewindow="cgi-bin/tac.cgi";
 ```
 
-Now you should have a useful and free Nagios3 and NagiosGraph setup with allows you to customize and  graph anything including any custom scripts you need you just need to send it the exit code and perfdata at the end of the script. I also suggest using version control on your configs. Any language is supported.
+Now you should have a useful and free Nagios3 and NagiosGraph setup with allows you to customize and  graph anything including any custom scripts you need you just need to send the exit code and proper perfdata. I also suggest using version control and deployment process on your configs. 
 
 ## More info on Nagios Plugins
 https://www.nagios.org/downloads/nagios-plugins/
 
-#### For Dashboards of combined or overlayed graphs you may want to also setup Graphite and Grafana or Prometheus for custom dashboards or monitoring from a dashoard level instead of server level to get a larger view of systems health and hit count.
-
-Next setup graylog and elk stack and loganalizer for more advanced logging.
-
-Hope this saves someone some time.
-
-
-## Send me any questions or suggestions, Cheers!
-
-## Enable External
-
+## Enable external checks
 ```
 check_external_commands=1
 
@@ -188,9 +166,7 @@ service nagios3 start
 
 ## Setup Simple Python Check
 ```
-#CONF DIR
-cd /etc/nagios3/conf.d
-vim localhost_nagios2.cfg
+vim /etc/nagios3/conf.d/localhost_nagios2.cfg
 
 # Define a service to check the load on the local machine.
 
@@ -215,3 +191,17 @@ cp check_websites.py /usr/lib/nagios/plugins/
 
 chmod 755 /usr/lib/nagios/plugins/check_websites.py
 ```
+
+## Changing Nagios3 password
+
+mv /etc/nagios3/htpasswd.users /etc/nagios3/htpasswd.users.backup
+htpasswd -c /etc/nagios3/htpasswd.users nagiosadmin
+
+
+#### For Dashboards of combined or overlayed graphs you may want to also setup Graphite and Grafana or Prometheus for custom dashboards or monitoring from a dashoard level instead of server level to get a larger view of systems health and hit count.
+
+Next setup graylog and elk stack and loganalizer for more advanced logging.
+
+Hope this saves someone some time.
+
+## Send me any questions or suggestions, Cheers!
