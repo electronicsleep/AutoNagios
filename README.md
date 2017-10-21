@@ -1,8 +1,10 @@
 # AutoNagios
 
-AutoNagios
+- Notes on how to install graphing plugin NagiosGraph with the Nagios.
 
-## Installing NagiosGraph on Nagios3 and Apache2 on Debian
+- How to install a example custom check.
+
+## Installing NagiosGraph on Nagios3 and Apache2 on Debian8
 
 ```
 apt-get install nagios3
@@ -21,7 +23,7 @@ apt-get install libcgi-pm-perl
 https://sourceforge.net/projects/nagiosgraph/files/nagiosgraph/
 
 ```
-scp -r nagiosgraph-1.5.2.tar.gz thinkpad.local:/home/USER
+scp -r nagiosgraph-1.5.2.tar.gz $SERVER:/home/$USER
 
 tar xvfz nagiosgraph-1.5.2.tar.gz
 
