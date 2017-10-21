@@ -7,24 +7,18 @@
 ## Installing NagiosGraph on Nagios3 and Apache2 on Debian8
 
 ```
-apt-get install nagios3
+apt-get install fail2ban vim git -y
 
-apt-get install rrdtool
+apt-get install nagios3 nagios-plugins rrdtool -y
 
-apt-get install libnagios-object-perl
+apt-get install libnagios-object-perl librrds-perl libgd-gd2-perl libcgi-pm-perl -y
 
-apt-get install librrds-perl
-
-apt-get install libgd-gd2-perl
-
-apt-get install libcgi-pm-perl
 ```
 
+## NagiosGraph
 https://sourceforge.net/projects/nagiosgraph/files/nagiosgraph/
 
 ```
-scp -r nagiosgraph-1.5.2.tar.gz $SERVER:/home/$USER
-
 tar xvfz nagiosgraph-1.5.2.tar.gz
 
 cd nagiosgraph-1.5.2
