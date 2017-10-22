@@ -200,8 +200,10 @@ chmod 755 /usr/lib/nagios/plugins/check_websites.py
 
 ## Changing Nagios3 password
 
+```
 mv /etc/nagios3/htpasswd.users /etc/nagios3/htpasswd.users.backup
 htpasswd -c /etc/nagios3/htpasswd.users nagiosadmin
+```
 
 
 #### For Dashboards of combined or overlayed graphs you may want to also setup Grafana, Prometheus or Graphite for custom dashboards or monitoring from a dashoard level instead of server level to get a larger view of systems health and hit count.
