@@ -22,7 +22,7 @@ with open(path, 'rU') as f:
         check_websites_list.append(line)
 
 if len(check_websites_list) == 0:
-    print("ERROR: NO WEBSITES DEFINED")
+    print("Error: No websites defined")
     exit(1)
 
 for website in check_websites_list:
@@ -32,8 +32,8 @@ for website in check_websites_list:
         print(r)
         print("OK: " + website)
     except Exception as e:
-        print("ERROR: CHECK WEBSITE: " + website + " " + str(e) + " | error=1 ")
+        print("Error: Check website: " + website + " " + str(e) + " | error=1")
         exit(1)
 
-print("ALL WEBSITES OK | error=0")
+print("All websites ok | error=0")
 exit(0)
