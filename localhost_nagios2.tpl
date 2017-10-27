@@ -22,8 +22,6 @@ define service{
         check_command                   check_disk!20%!10%!/
         }
 
-
-
 # Define a service to check the number of currently logged in
 # users on the local machine.  Warning if > 20 users, critical
 # if > 50 users.
@@ -35,7 +33,6 @@ define service{
         check_command                   check_users!20!50
         }
 
-
 # Define a service to check the number of currently running procs
 # on the local machine.  Warning if > 250 processes, critical if
 # > 400 processes.
@@ -44,16 +41,15 @@ define service{
         use                             generic-service,nagiosgraph
         host_name                       localhost
         service_description             Total Processes
-		    check_command                   check_procs!250!400
+		check_command                   check_procs!250!400
         }
 
-
-
-# Define a service to check the load on the local machine. 
+# Define a service to check the load on the local machine.
 
 define service{
         use                             generic-service,nagiosgraph
         host_name                       localhost
         service_description             Current Load
-		    check_command                   check_load!5.0!4.0!3.0!10.0!6.0!4.0
+		check_command                   check_load!5.0!4.0!3.0!10.0!6.0!4.0
         }
+

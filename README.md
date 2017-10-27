@@ -172,18 +172,24 @@ service nagios3 start
 
 ## Setup Simple Python Check
 ```
+# setup pip and requests on Nagios machine
+
+apt-get install python-pip
+pip install requests
+
 vim /etc/nagios3/conf.d/localhost_nagios2.cfg
 
-# Define a service to check the load on the local machine.
+# A list of external websites to check
 
 define service{
-        use                             generic-service,nagiosgraph       ; Name of service template to use
+        use                             generic-service,nagiosgraph
         host_name                       localhost
         service_description             Current Websites
-                check_command                   check_websites.py
+        check_command                   check_websites
         }
 
-#Plugin DIR
+# Plugin DIR
+
 cd /etc/nagios-plugins/config
 vim check-websites.cfg
 
@@ -194,8 +200,18 @@ define command{
         }
 
 cp check_websites.py /usr/lib/nagios/plugins/
+cp check_websites_inventory.py /usr/lib/nagios/plugins/
 
 chmod 755 /usr/lib/nagios/plugins/check_websites.py
+
+# verify it works
+python /usr/lib/nagios/plugins/check_websites.py
+
+
+# restart Nagios
+/usr/sbin/nagios3 -v /etc/nagios3/nagios.cfg
+
+service nagios3 restart
 ```
 
 ## Changing Nagios3 password
