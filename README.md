@@ -111,10 +111,7 @@ vim /etc/apache2/conf-enabled/nagiosgraph.conf
 ScriptAlias /nagiosgraph/cgi-bin "/usr/local/nagiosgraph/cgi"
 <Directory "/usr/local/nagiosgraph/cgi">
    Options ExecCGI
-   #AllowOverride None
-   #Order allow,deny
-   Require all granted
-   Allow from all
+   Require all denied
    AuthName "Nagios Access"
    AuthType Basic
    AuthUserFile /etc/nagios3/htpasswd.users
@@ -123,11 +120,12 @@ ScriptAlias /nagiosgraph/cgi-bin "/usr/local/nagiosgraph/cgi"
 # enable nagiosgraph CSS and JavaScript
 Alias /nagiosgraph "/usr/local/nagiosgraph/share"
 <Directory "/usr/local/nagiosgraph/share">
-   #Options None
-   #AllowOverride None
-   #Order allow,deny
-   Require all granted
-   Allow from all
+   Options None
+   Require all denied
+   AuthName "Nagios Access"
+   AuthType Basic
+   AuthUserFile /etc/nagios3/htpasswd.users
+   Require valid-user
 </Directory>
 ```
 
@@ -200,17 +198,16 @@ define command{
         }
 
 cp check_websites.py /usr/lib/nagios/plugins/
-cp check_websites_inventory.py /usr/lib/nagios/plugins/
+cp check_websites_inventory.txt /usr/lib/nagios/plugins/
 
 chmod 755 /usr/lib/nagios/plugins/check_websites.py
 
 # verify it works
+vim /usr/lib/nagios/plugins/check_websites_inventory.txt
 python /usr/lib/nagios/plugins/check_websites.py
-
 
 # restart Nagios
 /usr/sbin/nagios3 -v /etc/nagios3/nagios.cfg
-
 service nagios3 restart
 ```
 

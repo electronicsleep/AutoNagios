@@ -22,15 +22,17 @@ if len(check_websites_list) == 0:
     print("Error: No websites defined")
     exit(1)
 
+count = 0
 for website in check_websites_list:
     website = website.strip()
+    count += 1
     try:
         r = requests.get(website)
-        print(r)
-        print("OK: " + website)
+        # print(r)
+        # print("OK: " + website)
     except Exception as e:
         print("Error: Check website: " + website + " " + str(e) + " | error=1")
         exit(1)
 
-print("All websites ok | error=0")
+print("All websites ok " + str(count) + " | error=0")
 exit(0)
