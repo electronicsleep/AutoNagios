@@ -41,7 +41,7 @@ define service{
         use                             generic-service,nagiosgraph
         host_name                       localhost
         service_description             Total Processes
-		check_command                   check_procs!250!400
+        check_command                   check_procs!250!400
         }
 
 # Define a service to check the load on the local machine.
@@ -50,6 +50,6 @@ define service{
         use                             generic-service,nagiosgraph
         host_name                       localhost
         service_description             Current Load
-		check_command                   check_load!5.0!4.0!3.0!10.0!6.0!4.0
+        check_command                   check_load!5.0!4.0!3.0!10.0!6.0!4.0
         }
 
