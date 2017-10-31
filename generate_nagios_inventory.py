@@ -31,6 +31,7 @@ for line in inventory_file:
             new_line = line2
         create_file += new_line
 
-    print("Created new Nagios file: " + hostname + "_generated.cfg")
-    write_file = open(hostname + "_generated.cfg", "w")
+    ext = "_generated.cfg"
+    print("Created new Nagios file: " + hostname + ext)
+    write_file = open(hostname + ext, "w")
     write_file.write(create_file)

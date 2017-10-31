@@ -34,6 +34,7 @@ for line in template_file:
         new_line = line
     create_file += new_line
 
-print("Created new Nagios file: " + args.filename + "_generated.cfg")
-write_file = open(args.filename + "_generated.cfg", "w")
+ext = "_generated.cfg"
+print("Created new Nagios file: " + args.filename + ext)
+write_file = open(args.filename + ext, "w")
 write_file.write(create_file)
