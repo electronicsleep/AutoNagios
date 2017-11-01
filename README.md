@@ -210,6 +210,9 @@ python /usr/lib/nagios/plugins/check_websites.py
 /usr/sbin/nagios3 -v /etc/nagios3/nagios.cfg
 service nagios3 restart
 ```
+## Self Signed Certificate
+
+- At this point you probably want to setup a self signed cert or use lets encrypt.
 
 ## Changing Nagios3 password
 
