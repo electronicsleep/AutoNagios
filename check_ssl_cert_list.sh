@@ -11,13 +11,14 @@ do
  IP=$(dig +short $HOST)
  echo "_______________________"
  echo "### HOST: $HOST IP: $IP"
- INFO=$(echo -ne '\n' | openssl s_client -showcerts -servername $HOST -connect $IP:443 | openssl x509 -inform pem -noout -enddate && echo -e '\r')
- echo "$INFO" > /tmp/ssl_info.txt
- EXPIRY=$(grep "notAfter" info.txt)
+ INFO=$(echo -ne '\n' | openssl s_client -showcerts -servername $HOST -connect $IP:443 | openssl x509 -inform pem -noout -enddate)
+ echo "$INFO" > ssl_info.txt
+ EXPIRY=$(grep "notAfter" ssl_info.txt)
  EXPIRY_DATE=$(echo $EXPIRY | cut -f 2 -d =)
  EXPIRY_YEAR=$(echo $EXPIRY_DATE | cut -f 4 -d ' ')
  EXPIRY_DAY=$(echo $EXPIRY_DATE | cut -f 2 -d ' ')
  EXPIRY_MONTH=$(echo $EXPIRY_DATE | cut -f 1 -d ' ')
+ echo "$EXPIRY"
 
  OS=$(uname)
  if [ "$OS" == "Darwin" ]; then
@@ -40,6 +41,6 @@ do
   echo "Error: Renew Cert $DAYS days left."
   exit 2
  else
-  echo "OK: you have time..."
+  echo "Ok: $DAYS days left."
  fi
 done
