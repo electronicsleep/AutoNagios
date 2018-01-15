@@ -8,7 +8,13 @@
 import requests
 import os
 
-cwd = '/usr/lib/nagios/plugins/'
+nagios_dir = "/usr/lib/nagios/plugins/"
+if os.path.exists(nagios_dir):
+    cwd = nagios_dir
+    print("Using nagios dir")
+else:
+    print("Using local dir")
+    cwd = '.'
 
 path = os.path.join(cwd, "check_websites_inventory.txt")
 
