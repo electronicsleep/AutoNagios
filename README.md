@@ -1,5 +1,9 @@
 # AutoNagios
 
+- Tools to make Nagios easier to manage and understand
+
+- Simple system for Nagios checks and configuration.
+
 - Notes on how to install graphing plugin NagiosGraph with Nagios.
 
 - How to install a example custom check.
