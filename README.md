@@ -1,6 +1,6 @@
 # AutoNagios
 
-- Tools to make Nagios easier to manage and understand
+- Tools to make Nagios easier to manage and understand.
 
 - Simple system for Nagios checks and configuration.
 
