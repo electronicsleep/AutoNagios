@@ -4,7 +4,7 @@ FILE=cert-checker.txt
 HOSTS="$(cat ${FILE})"
 
 if [ -z "$HOSTS" ]; then
- echo "Add hosts to: check_ssl_cert_list.txt"
+ echo "Add hosts to: ${FILE}"
  exit 1
 fi
 
