@@ -1,8 +1,10 @@
 #!/bin/bash
-HOSTS="$(cat check_ssl_cert_list.txt)"
+FILE=cert-checker.txt
+HOSTS="$(cat ${FILE})"
 
 if [ -z "$HOSTS" ]; then
  echo "Add hosts to: check_ssl_cert_list.txt"
+ exit 1
 fi
 
 EPOCH=$(date "+%s")
@@ -12,7 +14,7 @@ YEAR=$(date "+%Y")
 
 for HOST in ${HOSTS};
 do
- IP=$(dig +short ${HOST})
+ IP=$(dig +short ${HOST} | tail -f 1)
  echo "_______________________"
  echo "### HOST: $HOST IP: $IP"
  INFO=$(echo -ne '\n' | openssl s_client -showcerts -servername ${HOST} -connect ${IP}:443 | openssl x509 -inform pem -noout -enddate)
@@ -21,7 +23,6 @@ do
  EXPIRY_DATE=$(echo ${EXPIRY} | cut -f 2 -d =)
  EXPIRY_YEAR=$(echo ${EXPIRY_DATE} | cut -f 4 -d ' ')
  EXPIRY_DAY=$(echo ${EXPIRY_DATE} | cut -f 2 -d ' ')
- #echo "EXPIRY_DAY $EXPIRY_DAY"
  EXPIRY_MONTH=$(echo ${EXPIRY_DATE} | cut -f 1 -d ' ')
  echo "$EXPIRY"
 
@@ -32,29 +33,29 @@ do
  else
   #Linux
   if [ ${EXPIRY_MONTH} == "Jan" ]; then
-  EXPIRY_MONTH=01
+   EXPIRY_MONTH=01
   elif [ ${EXPIRY_MONTH} == "Feb" ]; then
-  EXPIRY_MONTH=02
+   EXPIRY_MONTH=02
   elif [ ${EXPIRY_MONTH} == "Mar" ]; then
-  EXPIRY_MONTH=03
+   EXPIRY_MONTH=03
   elif [ ${EXPIRY_MONTH} == "Apr" ]; then
-  EXPIRY_MONTH=04
+   EXPIRY_MONTH=04
   elif [ ${EXPIRY_MONTH} == "May" ]; then
-  EXPIRY_MONTH=05
+   EXPIRY_MONTH=05
   elif [ ${EXPIRY_MONTH} == "Jun" ]; then
-  EXPIRY_MONTH=06
+   EXPIRY_MONTH=06
   elif [ ${EXPIRY_MONTH} == "Jul" ]; then
-  EXPIRY_MONTH=07
+   EXPIRY_MONTH=07
   elif [ ${EXPIRY_MONTH} == "Aug" ]; then
-  EXPIRY_MONTH=08
+   EXPIRY_MONTH=08
   elif [ ${EXPIRY_MONTH} == "Sep" ]; then
-  EXPIRY_MONTH=09
+   EXPIRY_MONTH=09
   elif [ ${EXPIRY_MONTH} == "Oct" ]; then
-  EXPIRY_MONTH=10
+   EXPIRY_MONTH=10
   elif [ ${EXPIRY_MONTH} == "Nov" ]; then
-  EXPIRY_MONTH=11
+   EXPIRY_MONTH=11
   elif [ ${EXPIRY_MONTH} == "Dec" ]; then
-  EXPIRY_MONTH=12
+   EXPIRY_MONTH=12
   fi
 
   COMPARE=$(date -d "$EXPIRY_MONTH/$EXPIRY_DAY/$EXPIRY_YEAR 00:00:00" +"%s")
