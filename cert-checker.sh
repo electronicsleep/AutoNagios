@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 FILE=cert-checker.txt
 HOSTS="$(cat ${FILE})"
 
@@ -14,7 +15,7 @@ YEAR=$(date "+%Y")
 
 for HOST in ${HOSTS};
 do
- IP=$(dig +short ${HOST} | tail -f 1)
+ IP=$(dig +short ${HOST} | tail -n 1)
  echo "_______________________"
  echo "### HOST: $HOST IP: $IP"
  INFO=$(echo -ne '\n' | openssl s_client -showcerts -servername ${HOST} -connect ${IP}:443 | openssl x509 -inform pem -noout -enddate)
