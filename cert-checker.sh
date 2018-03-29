@@ -1,4 +1,8 @@
 #!/bin/bash
+# Author: https://github.com/electronicsleep
+# Purpose: Check Certificate Expiry
+# Released under the BSD license
+
 set -e
 FILE=cert-checker.txt
 HOSTS="$(cat ${FILE})"
